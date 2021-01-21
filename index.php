@@ -15,7 +15,13 @@
         </div>
         <ul id="todolist-list">
             <?php
-                
+                $query = "SELECT * FROM todolist;";
+                $result = mysqli_query($conn, $query);
+                if(!mysqli_num_rows($result)){
+                    echo "No results.";
+                }else{
+                    
+                }
             ?>
         </ul>
     </div>
