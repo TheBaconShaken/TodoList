@@ -5,4 +5,11 @@ $user = "root";
 $pass = "";
 $db = "todolist";
 
-$sql = mysqli_connect($host, $user, $pass, $db);
+$conn = new mysqli($host, $user, $pass, $db);
+
+//Check Connection
+if ($conn -> mysqli_connect_errno){
+    echo "Failed to connect to MySQL: ";
+    exit();
+}
+
