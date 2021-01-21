@@ -1,0 +1,19 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Todo List Section */
+#todolist-wrapper{
+    border: 2px solid red;
+}
+#todolist-header{
+    border: 2px solid blue;
+}
+#todolist-heading{
+    color: red;
+}
+#todolist-list{
+    border: 2px solid salmon;
+}
