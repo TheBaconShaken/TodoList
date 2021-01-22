@@ -3,17 +3,47 @@
     padding: 0;
     box-sizing: border-box;
 }
+button:focus {
+    outline: none !important;
+}
+button::-moz-focus-inner {
+    border: 0 !important;
+}
 
 /* Todo List Section */
 #todolist-wrapper{
+    width: 100vw;
+    padding: 15vh 20vw 15vh 20vw;
+}
+div#todolist-list{
+    display: flex;
+    flex-direction: column;
+}
+div#item-check{
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    max-width: 8rem;
+    height: 8rem;
+    span{
+        font-size: 5rem;
+    }
     border: 2px solid red;
 }
-#todolist-header{
+div#item-delete{
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    max-width: 8rem;
+    height: 8rem;
+    span{
+        font-size: 5rem;
+    }
     border: 2px solid blue;
 }
-#todolist-heading{
-    color: red;
-}
-#todolist-list{
-    border: 2px solid salmon;
+div#item-text{
+    flex: 4;
+    border: 2px solid green;
 }
