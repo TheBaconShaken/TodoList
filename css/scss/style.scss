@@ -25,11 +25,10 @@ div#item-check{
     justify-content: center;
     align-items: center;
     max-width: 8rem;
-    height: 8rem;
+    min-height: 100%;
     span{
         font-size: 5rem;
     }
-    border: 2px solid red;
 }
 div#item-delete{
     display: flex;
@@ -37,13 +36,22 @@ div#item-delete{
     justify-content: center;
     align-items: center;
     max-width: 8rem;
-    height: 8rem;
+    min-height: 100%;
     span{
         font-size: 5rem;
     }
-    border: 2px solid blue;
 }
 div#item-text{
     flex: 4;
-    border: 2px solid green;
+}
+div#text-head{
+    flex: 1;
+    padding: 1rem 0 1rem 1rem;
+    background-color: rgb(249, 250, 251) !important;
+    z-index: 50;
+}
+div#text-content{
+    flex: 2;
+    padding: 1rem 0 3.5rem 1rem;
+    z-index: 45;
 }
