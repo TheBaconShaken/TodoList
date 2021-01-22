@@ -1,3 +1,3 @@
 Simple PHP + MySQL todo list.
 
-Well I think it is fixed?
+Done using PHP, MySQL, SCSS, HTML, and JS.
