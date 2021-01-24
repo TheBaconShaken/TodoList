@@ -1,0 +1,29 @@
+index.php~~
+ <?php
+                $query = "SELECT * FROM todos;";
+                $result = $conn->query($query);
+                $marked = false;
+                if($resultcheck > 0){
+                    while($row = mysqli_fetch_assoc($result)){
+                        ?>
+                            <div id="list-item" class="flex flex-row pt-2 pb-6 space-x-4 shadow-lg">
+                                <div id="item-check" class="text-green-500">
+                                    <span class="fa fa-check-circle"></span>
+                                </div>
+                                <div id="item-text" class="flex flex-col">
+                                    <div id="text-head" class="text-4xl font-semibold shadow-sm">
+                                        <h1 id="head-title"><?php echo $row['title'];?></h1>
+                                    </div>
+                                    <div id="text-content" class="shadow-sm">
+                                        <p id="content-description"><?php echo $row['description'];?></p>
+                                    </div>
+                                </div>
+                                <div id="item-delete" class="text-red-500">
+                                    <span class="fa fa-times-circle"></span>
+                                </div>
+                            </div>
+                        <?php
+                    }
+                }
+            ?>
+index.php/end~~

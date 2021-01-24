@@ -1,4 +1,21 @@
-<?php include_once 'includes/db.php';?>
+<?php 
+    include_once 'includes/db.php';
+
+    $handle = ['', ''];
+
+    if(isset($_POST['title']) && isset($_POST['description'])){
+        $title = $_POST['title'];
+        $desc = $_POST['description'];
+
+        $query = 'INSERT INTO todos (title, description, status) VALUES (:title, :desc, :status)';
+        $statement = $conn->prepare($query);
+        if($statement->execute([':title' => $title, ':desc' => $desc, ':status' => 0])){
+            $handle = ['Succesfully submitted data!', 0];
+        }else{
+            $handle = ['Failed to submit data..', 1];
+        }
+    }
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -12,6 +29,8 @@
     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
     <!-- Font Awesome -->
     <script src="https://use.fontawesome.com/24f5eb1201.js"></script>
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 
 </head>
 <body>
@@ -19,39 +38,37 @@
     <div id="todolist-wrapper" class="bh-white">
         <div id="todolist-header" class="bg-gray-50 pl-4 pb-4 pt-8 border-4 border-gray-100">
             <h1 id="todolist-heading" class="text-5xl font-bold">Simple Todo List</h1>
-            <!-- Add New Todo Item (Later Date) -->
+            <div id="todolist-add">
+                <?php if(!empty($handle)):?>
+                    <div class="mt-4 alert 
+                        <?php   if($handle[1] == 0){
+                                    echo 'alert-success';
+                                }elseif($handle[1] == 1){
+                                    echo 'alert-danger';
+                                } 
+                        ?>" role="alert">
+                        <?php echo $handle[0]; ?>
+                    </div>
+                <?php endif; ?>
+                <form id="add-form" method="post">
+                    <div class="form-input flex flex-col">
+                        <label for="title" class="text-2xl">Title</label>
+                        <input type="text" name="title" id="input-title" class="form-title form-control">
+                    </div>
+                    <div class="form-input flex flex-col">
+                        <label for="description" class="text-2xl">Description</label>
+                        <input type="text" name="description" id="input-desc" class="form-desc form-control">
+                    </div>
+                    <div class="form-input pt-4">
+                        <button type="submit" class="btn btn-primary">Add</button>
+                    </div>
+                </form>
+            </div>
         </div>
         <div id="todolist-list" class="flex flex-col space-y-8 bg-gray-100 pl-6 pr-6 pt-6 pb-6">
-        <?php
-                $query = "SELECT * FROM todos;";
-                $result = mysqli_query($conn, $query);
-                $resultcheck = mysqli_num_rows($result);
-                $marked = false;
-                
-                if($resultcheck > 0){
-                    while($row = mysqli_fetch_assoc($result)){
-                        ?>
-                            <div id="list-item" class="flex flex-row pt-2 pb-6 space-x-4 shadow-lg">
-                                <div id="item-check" class="text-green-500">
-                                    <span class="fa fa-check-circle"></span>
-                                </div>
-                                <div id="item-text" class="flex flex-col">
-                                    <div id="text-head" class="text-4xl font-semibold shadow-sm">
-                                        <h1 id="head-title"><?php echo $row['title'];?></h1>
-                                    </div>
-                                    <div id="text-content" class="shadow-sm">
-                                        <p id="content-description"><?php echo $row['description'];?></p>
-                                    </div>
-                                </div>
-                                <div id="item-delete" class="text-red-500">
-                                    <span class="fa fa-times-circle"></span>
-                                </div>
-                            </div>
-                        <?php
-                    }
-                }
-            ?>
+
         </div>
     </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
 </body>
 </html>

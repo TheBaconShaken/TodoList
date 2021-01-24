@@ -1,13 +1,13 @@
 <?php
-$host = "localhost";
-$user = "root";
-$pass = "";
-$db = "todolist";
+
+$dsn = 'mysql:host=localhost;dbname=todolist';
+$user = 'root';
+$pass = '';
+$opt = [];
 
 
-$conn = mysqli_connect($host, $user, $pass, $db);
-
-if(mysqli_errno($conn)){
-    echo "Failed to connect to MySQL server: " . mysqli_errno($conn);
-    exit();
+try{
+    $conn = new PDO($dsn, $user, $pass, $opt);
+}catch(PDOException $e){
+    echo 'Failed to connect to database ' . $conn->errorCode;
 }
