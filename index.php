@@ -1,38 +1,14 @@
 <?php 
-    include_once 'includes/db.php';
+    include_once 'includes/function/db.php';
 
-    $handle = ['', ''];
+    $query = "SELECT * FROM todos;";
+    $statement = $conn->prepare($query);
+    $statement->execute();
 
-    if(isset($_POST['title']) && isset($_POST['description'])){
-        $title = $_POST['title'];
-        $desc = $_POST['description'];
-
-        $query = 'INSERT INTO todos (title, description, status) VALUES (:title, :desc, :status)';
-        $statement = $conn->prepare($query);
-        if($statement->execute([':title' => $title, ':desc' => $desc, ':status' => 0])){
-            $handle = ['Succesfully submitted data!', 0];
-        }else{
-            $handle = ['Failed to submit data..', 1];
-        }
-    }
+    $todos = $statement->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Todo List</title>
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="css/style.css" >
-    <!-- Tailwind CSS -->
-    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
-    <!-- Font Awesome -->
-    <script src="https://use.fontawesome.com/24f5eb1201.js"></script>
-    <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-
-</head>
+<?php include 'includes/header.php'; ?>
 <body>
     <!-- Todo List -->
     <div id="todolist-wrapper" class="bh-white">
@@ -66,7 +42,33 @@
             </div>
         </div>
         <div id="todolist-list" class="flex flex-col space-y-8 bg-gray-100 pl-6 pr-6 pt-6 pb-6">
-
+            <table class="table" id="list-table">
+                <tr>
+                    <th>Status</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Action</th>
+                </tr>
+                <?php foreach($todos as $todo):?>
+                <tr scope="col">
+                    <td><input type="checkbox" name="status" id="<?= $todo['id'];?>"></td>
+                    <td><?= $todo['title']; ?></td>
+                    <td><?= $todo['description']; ?></td>
+                    <td>
+                        <!-- Completed Status -->
+                        <a href="includes/function/edit.php?id=<?= $todo['id']; ?>"
+                            class="btn btn-outline-primary">
+                            Edit
+                        </a>
+                        <!-- Delete Button -->
+                        <a href="includes/function/delete.php?id=<?= $todo['id']; ?>"
+                            class="ml-6 btn btn-outline-danger">
+                            Delete
+                        </a>
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+            </table>
         </div>
     </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
