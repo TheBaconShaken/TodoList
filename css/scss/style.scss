@@ -9,12 +9,14 @@ button:focus {
 button::-moz-focus-inner {
     border: 0 !important;
 }
+#input-title{
+    max-width: 75%;
+}
+#input-desc{
+    max-width: 75%;
+}
 
 /* Todo List Section */
-#todolist-wrapper{
-    width: 100vw;
-    padding: 15vh 20vw 15vh 20vw;
-}
 div#todolist-list{
     display: flex;
     flex-direction: column;

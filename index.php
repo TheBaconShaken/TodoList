@@ -11,7 +11,7 @@
 <?php include 'includes/header.php'; ?>
 <body>
     <!-- Todo List -->
-    <div id="todolist-wrapper" class="bh-white">
+    <div id="todolist-wrapper" class="bg-white">
         <div id="todolist-header" class="bg-gray-50 pl-4 pb-4 pt-8 border-4 border-gray-100">
             <a href="index.php" class="no-underline text-gray-900 hover:text-gray-700"><h1 id="todolist-heading" class="text-5xl font-bold">Simple Todo List</h1></a>
             <div id="todolist-add">
